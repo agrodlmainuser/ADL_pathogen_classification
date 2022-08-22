@@ -122,7 +122,7 @@ class Ptgn_Classification:
       else:
         os.mkdir(f"{self.classification_model_save_root}/{extn}")
         break
-      model.save(f"{self.classification_model_save_root}/{extn}")
+    model.save(f"{self.classification_model_save_root}/{extn}")
 
 
 
