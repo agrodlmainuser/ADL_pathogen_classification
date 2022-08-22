@@ -10,14 +10,21 @@ import os
 import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import shutil
+from ADL_classes import ADL_Read_XML
+import xml.etree.ElementTree as ET
+
+# parsing parameters from XML file
+script_parameters = ADL_Read_XML("AgroDL_Classification_TL_Training_0001")
+input_dir = script_parameters.get_params("original_input_dir")
+val_dir = script_parameters.get_params("original_val_dir")
+
 
 # hyper parameters value setting
 BATCH_SIZE = 32
 CHANNELS=3
 EPOCHS=15
 
-train_dir = '/content/drive/MyDrive/Agroml/AgroML_Data/Diseases/blobs/Train'
-val_dir = '/content/drive/MyDrive/Agroml/AgroML_Data/Diseases/blobs/Val'
+
 for class_dir in os.listdir(train_dir):
   class_val_dir = f'{val_dir}/{class_dir}'
   if os.path.exists(class_val_dir):
