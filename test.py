@@ -28,6 +28,7 @@ train_dir = script_params.get_params("train_dir")
 images_dir = script_params.get_params("images_dir")
 original_img_dir_root = script_params.get_params("original_img_dir_root")
 output_root = script_params.get_params("output_root")
+image_output_path = script_params.get_params("image_output_path")
 
 trained_model = keras.models.load_model(f"{trained_model_dir}/{trained_model_name}")
 trained_model.summary()
@@ -123,7 +124,6 @@ for i, image in enumerate(os.listdir(images_dir)):
     img = torchvision.transforms.ToPILImage()(img)
     
     # save image to output
-    image_output_path = "/content/drive/MyDrive/AgroDL/AgroDL_Data/Output/Leaf_classifications"
     img.save(f"{image_output_path}/{image}")
     # create corresponding csv file
     labels.drop([0,3,4], inplace=True, axis=1)
