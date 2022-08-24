@@ -13,6 +13,10 @@ import shutil
 from ADL_classes import ADL_Read_XML
 import xml.etree.ElementTree as ET
 
+script_parameters = ADL_Read_XML("AgroDL_Classification_TL_Training_0002")
+mobilenet_v3 = script_parameters.get_params("mobilenet_v3")
+efficientnet_v2 = script_parameters.get_params("efficientnet_v2")
+inception_v3 = script_parameters.get_params("inception_v3")
 
 class Ptgn_Classification:
   
@@ -36,11 +40,11 @@ class Ptgn_Classification:
     self.tl_model_name_str = tl_model_name_str
     # pulling the tl models from tf hub
     if self.tl_model_name_str == "mobilenet_v3":
-      tl_model = "https://tfhub.dev/google/imagenet/mobilenet_v3_large_100_224/feature_vector/5"
+      tl_model = mobilenet_v3
     elif self.tl_model_name_str == "efficientnet_v2":
-      tl_model = "https://tfhub.dev/google/imagenet/efficientnet_v2_imagenet21k_b2/feature_vector/2"
+      tl_model = efficientnet_v2
     elif self.tl_model_name_str == "inception_v3":
-      tl_model = "https://tfhub.dev/google/tf2-preview/inception_v3/feature_vector/4"
+      tl_model = inception_v3
     # activating previous function to get the ds at the right struction
     train_ds, val_ds = self.__prepare_ds__()
     resize_and_rescale = tf.keras.Sequential([layers.experimental.preprocessing.Resizing(self.IMAGE_SIZE, self.IMAGE_SIZE),
@@ -129,7 +133,6 @@ class Ptgn_Classification:
     
   if __name__ == '__main__':
     # parsing parameters from XML file
-    script_parameters = ADL_Read_XML("AgroDL_Classification_TL_Training_0002")
     train_dir = script_parameters.get_params("original_train_dir")
     val_dir = script_parameters.get_params("original_val_dir")
     classification_model_save_root = script_parameters.get_params("classification_model_save_root")
