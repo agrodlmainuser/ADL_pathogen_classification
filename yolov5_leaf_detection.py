@@ -9,7 +9,6 @@ folder_dir = script_params.get_params("folder_dir")
 yolov5_detections_root_dir = script_params.get_params("yolov5_detections_root_dir")
 %cd AgroML_Test_System/yolov5
 %pip install -qr requirements.txt  # install
-import utils
 display = utils.notebook_init()  # checks
 #implementing yolov5 detection on relevant leaf detection weight
 !python detect.py --weights leafs1.pt --img 640 --conf 0.25 --source {folder_dir} --save-txt
